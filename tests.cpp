@@ -83,6 +83,8 @@ void test_DynamicArray() {
     assert(arr.Get(0) == 1);
     assert(arr[1] == 2);
     assert(arr.Get(2) == 3);
+    arr.Append(5);
+    assert(arr[5] == 5);
 }
 
 void test_LinkedListSequence() {
