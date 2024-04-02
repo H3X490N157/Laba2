@@ -3,24 +3,51 @@
 #include "array_sequence.h"
 #include "linked_list_sequence.h" 
 using namespace std;
-///Заметки и вольные корректировки
 
-//0. Для уменьшения объёма кода испльзовал bits и импортировал namespace std. Для ускорения и оптимизации можно и перписать заголовки 
-//1. Заменил в указании class на template в шаблоне, добавил использование указателей, так как это стилистически корректно и удобно
-//2. Ввёл кастомную ноду для упрощения операция со списком
-//3. Отрицательный size (доп.баллы будут?)
-//4. Перегрузка оператора [] 
-//5. Отсутствует шаблонное ручное тестирование (начало кода закоменчено)
-//6. Примечание: в ТЗ для  2.1 (Динамического Массива) отсутствуют полностью методы добавления/удаления (не стал делать допом, так как есть в DynArrSeq)
+//добавил тесты для конструкторов и поддердку pragma once в .h
+void test_ConstructorsArraySequence() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int arrSize = sizeof(arr) / sizeof(arr[0]);//всегда 
+    ArraySequence<int> seqFromArray(arr, arrSize);
+    for (int i = 0; i < arrSize; ++i) {
+        assert(seqFromArray.Get(i) == arr[i]);
+    }
 
-//Заменить указатели на ссылки
-//const-ccылки на аппенд, препенд, инсёрт
-//
+    DynamicArray<int> dynArr(arr, arrSize);
+    ArraySequence<int> seqFromDynArr(dynArr);
+    for (int i = 0; i < arrSize; ++i) {
+        assert(seqFromDynArr.Get(i) == dynArr.Get(i));
+    }
+
+    ArraySequence<int> seqFromSeq(seqFromArray);
+    for (int i = 0; i < arrSize; ++i) {
+        assert(seqFromSeq.Get(i) == seqFromArray.Get(i));
+    }
+}
+
+void test_ConstructorsLinkedListSequence() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int arrSize = arrSize = sizeof(arr) / sizeof(arr[0]);//всегда ;
+    LinkedListSequence<int> seqFromArray(arr, arrSize);
+    for (int i = 0; i < seqFromArray.GetLength(); ++i) {
+        assert(seqFromArray.Get(i) == arr[i]);
+    }
+
+    LinkedListSequence<int> seqFromSeq(seqFromArray);
+    for (int i = 0; i < seqFromSeq.GetLength(); ++i) {
+        assert(seqFromSeq.Get(i) == arr[i]);
+    }
+
+    LinkedListSequence<int> emptySeq;
+    assert(emptySeq.GetLength() == 0);
+
+}
 
 
 
 void test_LinkedList() {
     LinkedList<int> list;
+    assert(list.GetLength() == 0);
 
     list.Append(1);
     assert(list.GetLength() == 1);
@@ -34,15 +61,14 @@ void test_LinkedList() {
 
     list.InsertAt(2, 1);
     assert(list.GetLength() == 3);
-    assert(list.Get(1) == 2);
+    assert(list[1] == 2);
     assert(list.GetFirst() == 0);
     assert(list.GetLast() == 1);
 
 }
 
 void test_DynamicArray() {
-    DynamicArray<int> arr(3);
-
+    DynamicArray<int> arr(3); 
     assert(arr.GetSize() == 3);
 
     arr.Set(0, 1);
@@ -64,10 +90,8 @@ void test_LinkedListSequence() {
     list.Append(1);
     list.Append(2);
     LinkedListSequence<int> seq(list);
-
     assert(seq.GetFirst() == 1);
     assert(seq.GetLast() == 2);
-
     assert(seq.Get(0) == 1);
     assert(seq[1] == 2);
 
@@ -108,6 +132,8 @@ void test_ArraySequence() {
 }
 
 int main() {
+    test_ConstructorsLinkedListSequence();
+    test_ConstructorsArraySequence();
     test_LinkedList();
     test_DynamicArray();
     test_LinkedListSequence();

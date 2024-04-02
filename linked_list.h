@@ -1,15 +1,16 @@
-
+#pragma once
 template <typename T>
-struct Node {
-    T data;
-    Node* next;
 
-    Node(const T& value) : data(value), next(nullptr) {}
-};
-
-template <typename T>
-class LinkedList {
+class LinkedList { 
 private:
+    //внёс ноду, как и просили
+    template <typename V>
+    struct Node {
+        V data;
+        Node* next;
+        Node(const V& value) : data(value), next(nullptr) {}
+    };
+
     Node<T>* head;
     int size;
 
@@ -79,17 +80,12 @@ public:
         return size;
     }
 
-    void Append(const T& item) {
-        Node<T>* newNode = new Node<T>(item);
-        if (!head) {
-            head = newNode;
-        } else {
-            Node<T>* current = head;
-            while (current->next) {
-                current = current->next;
-            }
-            current->next = newNode;
+    void Append(T item) {//сделал через указатель на указатель, как и просили, но криво 
+        Node<T>** current = &head; //указатель на указатель на текущий узел
+        while (*current) {
+            current = &((*current)->next); //переходим к следующему узлу
         }
+        *current = new Node<T>(item); //создаем новый узел и присваиваем его указателю на указатель на последний узел
         size++;
     }
 

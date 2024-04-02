@@ -248,8 +248,6 @@ public:
 
     ArraySequence() : array(0) {}
 
-    //В задании была допущена ошибка (ошибка ли?), требующая создания ArraySequence от LinkedList
-
     ArraySequence(DynamicArray<T>& vec) : array(vec.GetSize()) {
         for (size_t i = 0; i < vec.GetSize(); ++i) {
             array.Set(i, *(vec.Get(i)));

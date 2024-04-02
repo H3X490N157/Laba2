@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#pragma once
 #include "linked_list.h"
 
 template <typename T>
@@ -12,6 +13,20 @@ public:
     LinkedListSequence() : list() {}
 
     LinkedListSequence(LinkedList<T>& linkedList) : list(linkedList) {}
+
+    LinkedListSequence(T* items, int count) : list() {
+        for (int i = count - 1; i >= 0; --i) {
+            list.Prepend(items[i]);
+        }
+    }
+
+    template<typename SequenceType>
+    LinkedListSequence(const SequenceType& sequence) : list() {
+        for (int i = 0; i < sequence.GetLength(); ++i) {
+            list.Append(sequence.Get(i));
+        }
+    }
+    
 
     T& GetFirst() override {
         return list.GetFirst();
@@ -32,8 +47,8 @@ public:
     int GetLength() override {
         return static_cast<int>(list.GetLength());
     }
-
-    void Append(T item) override {
+    
+    void Append(T item) {
         list.Append(item);
     }
 
@@ -43,12 +58,6 @@ public:
 
     void InsertAt(T item, int index) override {
         list.InsertAt(item, index);
-    }
-
-    LinkedListSequence<T> GetSubsequence(int startIndex, int endIndex) {
-    if (startIndex < 0 || endIndex < 0 || startIndex >= GetLength() || endIndex >= GetLength() || startIndex > endIndex) {
-        throw std::out_of_range("Некорректные индексы");
-    }
     }
 
 };
