@@ -1,7 +1,5 @@
-#include <bits/stdc++.h>
 #pragma once
 #include "dynamic_array.h"
-#pragma once
 using namespace std; 
 
 template <typename T>
@@ -35,8 +33,6 @@ public:
             array.Set(i, &(sequence.Get(i))); 
         }
     }
-
-    
 
     T& GetFirst() override {
         return *(array.Get(0));

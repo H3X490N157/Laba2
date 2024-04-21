@@ -1,5 +1,4 @@
 template <typename T>
-#pragma once
 class Sequence {
 public:
     virtual ~Sequence() {} 

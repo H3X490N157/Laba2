@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #pragma once
 #include "linked_list.h"
 
@@ -48,7 +47,7 @@ public:
         return static_cast<int>(list.GetLength());
     }
     
-    void Append(T item) {
+    void Append(T item) override{
         list.Append(item);
     }
 

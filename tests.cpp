@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
 #include "sequence.h"
 #include "array_sequence.h"
 #include "linked_list_sequence.h" 
+#include "immutable_list_sequence.h"
 using namespace std;
 
 //добавил тесты для конструкторов и поддердку pragma once в .h
@@ -42,7 +42,6 @@ void test_ConstructorsLinkedListSequence() {
     assert(emptySeq.GetLength() == 0);
 
 }
-
 
 
 void test_LinkedList() {
@@ -110,6 +109,30 @@ void test_LinkedListSequence() {
     assert(seq[2] == 4);
 }
 
+void test_ImmutableLinkedListSequence() {
+    LinkedList<int> list;
+    list.Append(1);
+    list.Append(2);
+    LinkedListSequence<int> seq(list);
+    assert(seq.GetFirst() == 1);
+    assert(seq.GetLast() == 2);
+    assert(seq.Get(0) == 1);
+    assert(seq[1] == 2);
+
+    seq.Append(3);
+    assert(seq.GetLength() == 3);
+    assert(seq.GetLast() == 3);
+
+    seq.Prepend(0);
+    assert(seq.GetLength() == 4);
+    assert(seq.GetFirst() == 0);
+
+    seq.InsertAt(4, 2);
+    assert(seq.GetLength() == 5);
+    assert(seq[2] == 4);
+}
+
+
 void test_ArraySequence() {
     int arr[] = {1, 2, 3, 4, 5};
     DynamicArray<int> dynamicArray(arr, 5);
@@ -134,12 +157,53 @@ void test_ArraySequence() {
 }
 
 int main() {
-    test_ConstructorsLinkedListSequence();
-    test_ConstructorsArraySequence();
-    test_LinkedList();
-    test_DynamicArray();
-    test_LinkedListSequence();
-    test_ArraySequence();
-    cout << "Это - успех!" << endl;
+    char choice;
+    cout << "Выберите тесты для запуска:\n";
+    cout << "1 - тесты для Array\n";
+    cout << "2 - тесты для LinkedList\n";
+    cout << "3 - тесты для SequenceType-структур\n";
+    cout << "4 - все тесты сразу\n";
+    cout << "q - выход\n";
+    
+    cin >> choice;
+    
+    switch (choice) {
+        case '1':
+            test_ConstructorsArraySequence();
+            test_DynamicArray();
+            test_ArraySequence();
+            cout << "Тесты для Array успешно завершены\n";
+            break;
+        case '2':
+            test_ConstructorsLinkedListSequence();
+            test_LinkedList();
+            test_LinkedListSequence();
+            test_ImmutableLinkedListSequence();
+            cout << "Тесты для LinkedList успешно завершены\n";
+            break;
+        case '3':
+            test_LinkedListSequence();
+            test_ArraySequence();
+            test_ImmutableLinkedListSequence();
+            cout << "Тесты для SequenceType-структур успешно завершены\n";
+            break;
+        case '4':
+            test_ConstructorsLinkedListSequence();
+            test_ConstructorsArraySequence();
+            test_LinkedList();
+            test_DynamicArray();
+            test_LinkedListSequence();
+            test_ArraySequence();
+            test_ImmutableLinkedListSequence();
+            cout << "Это - абсолютный успех на всех тестах!" << endl;
+            break;
+        case 'q':
+            cout << "Программа завершена\n";
+            break;
+        default:
+            cout << "Некорректный ввод\n";
+            break;
+    }
     return 0;
 }
+

@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
 #pragma once
+#include <iostream>
+#include <cassert>
 using namespace std; 
 
 template <typename T>
@@ -93,8 +94,7 @@ public:
 
     void Append(T item){
         Resize(size + 1);
-        array[size] = item;
-        size++; 
+        array[size - 1] = item;
     }
 
     

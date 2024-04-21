@@ -1,9 +1,10 @@
 #pragma once
-template <typename T>
+#include <iostream>
+#include <cassert>
 
+template <typename T>
 class LinkedList { 
 private:
-    //внёс ноду, как и просили
     template <typename V>
     struct Node {
         V data;
