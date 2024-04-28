@@ -157,52 +157,58 @@ void test_ArraySequence() {
 }
 
 int main() {
-    char choice;
     cout << "Выберите тесты для запуска:\n";
     cout << "1 - тесты для Array\n";
     cout << "2 - тесты для LinkedList\n";
     cout << "3 - тесты для SequenceType-структур\n";
     cout << "4 - все тесты сразу\n";
     cout << "q - выход\n";
-    
-    cin >> choice;
-    
-    switch (choice) {
-        case '1':
-            test_ConstructorsArraySequence();
-            test_DynamicArray();
-            test_ArraySequence();
-            cout << "Тесты для Array успешно завершены\n";
+    ///для тренировки попробовал новый вид UI, который отличается от предыдущего (в этой лабе через switch, в той через if)
+    char choice = 'x';
+    while (choice){
+        cin >> choice;
+        bool breaker = false;
+        switch (choice) {
+            case '1':
+                test_ConstructorsArraySequence();
+                test_DynamicArray();
+                test_ArraySequence();
+                cout << "Тесты для Array успешно завершены\n";
+                break;
+            case '2':
+                test_ConstructorsLinkedListSequence();
+                test_LinkedList();
+                test_LinkedListSequence();
+                test_ImmutableLinkedListSequence();
+                cout << "Тесты для LinkedList успешно завершены\n";
+                break;
+            case '3':
+                test_LinkedListSequence();
+                test_ArraySequence();
+                test_ImmutableLinkedListSequence();
+                cout << "Тесты для SequenceType-структур успешно завершены\n";
+                break;
+            case '4':
+                test_ConstructorsLinkedListSequence();
+                test_ConstructorsArraySequence();
+                test_LinkedList();
+                test_DynamicArray();
+                test_LinkedListSequence();
+                test_ArraySequence();
+                test_ImmutableLinkedListSequence();
+                cout << "Это - абсолютный успех на всех тестах!" << endl;
+                break;
+            case 'q':
+                cout << "Работа программы завершена\n";
+                breaker = true;
+                break;
+            default:
+                cout << "Некорректный ввод\n";
+                break;
+        }
+        if (breaker){
             break;
-        case '2':
-            test_ConstructorsLinkedListSequence();
-            test_LinkedList();
-            test_LinkedListSequence();
-            test_ImmutableLinkedListSequence();
-            cout << "Тесты для LinkedList успешно завершены\n";
-            break;
-        case '3':
-            test_LinkedListSequence();
-            test_ArraySequence();
-            test_ImmutableLinkedListSequence();
-            cout << "Тесты для SequenceType-структур успешно завершены\n";
-            break;
-        case '4':
-            test_ConstructorsLinkedListSequence();
-            test_ConstructorsArraySequence();
-            test_LinkedList();
-            test_DynamicArray();
-            test_LinkedListSequence();
-            test_ArraySequence();
-            test_ImmutableLinkedListSequence();
-            cout << "Это - абсолютный успех на всех тестах!" << endl;
-            break;
-        case 'q':
-            cout << "Программа завершена\n";
-            break;
-        default:
-            cout << "Некорректный ввод\n";
-            break;
+        }
     }
     return 0;
 }
